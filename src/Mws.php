@@ -55,7 +55,7 @@ class Mws
     {
         $this->store = $store;
 
-        config()->set('mws-config', [
+        config()->set('mws', [
             $store => [
                 'serviceUrl' => $config['serviceUrl'] ?? null,
                 'merchantId' => $config['merchantId'] ?? null,

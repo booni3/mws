@@ -10,7 +10,7 @@ class AmazonCore extends AmazonCoreBase
     protected function __construct($s, $mock = false, $m = null, $config = null)
     {
         if (is_null($config)){
-            $config = config('mws-config', null);
+            $config = config('mws', null);
         }
 
         $this->setConfig($config);
@@ -99,7 +99,7 @@ class AmazonCore extends AmazonCoreBase
     }
 
     protected function genQuery(){
-        if(! $store = config('mws-config', null)){
+        if(! $store = config('mws', null)){
             throw new Exception('Config file does not exist!');
         }
 

@@ -45,7 +45,7 @@ abstract class AmazonRecommendationCore extends AmazonCore{
         parent::__construct($s, $mock, $m, $config);
         include($this->env);
 
-        $config = config('mws-config', null);
+        $config = config('mws', null);
         if(! $store = $config[$s] ?? null){
             throw new Exception('Config file does not exist!');
         }

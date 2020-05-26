@@ -1,8 +1,13 @@
 <?php
 
-/*
- * You can place your custom package configuration in here.
- */
 return [
-
+    'store' => 'MyStore',
+    'config' => [
+        'serviceUrl' => null,
+        'MarketplaceId' => null,
+        'merchantId' => null,
+        'keyId' => null,
+        'secretKey' => null,
+        'MWSAuthToken' => null,
+    ]
 ];

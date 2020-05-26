@@ -224,7 +224,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator{
         }
 
         //reset to store's default marketplace
-        $config = config('mws-config', null);
+        $config = config('mws', null);
         if(! $store = $config[$s] ?? null){
             throw new Exception('Config file does not exist!');
         }

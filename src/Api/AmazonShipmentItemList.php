@@ -26,7 +26,7 @@ namespace Booni3\Mws\Api;
  * shipment from Amazon. In order to get the list, a shipment ID is required.
  * An optional parameter is available to narrow the returned items.
  */
-class AmazonShipmentItemList extends AmazonInboundCore implements Iterator{
+class AmazonShipmentItemList extends AmazonInboundCore implements \Iterator{
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;
     protected $itemList;
@@ -131,7 +131,7 @@ class AmazonShipmentItemList extends AmazonInboundCore implements Iterator{
             }
             
         } catch (Exception $e){
-            throw new InvalidArgumentException('Parameters should be timestamps.');
+            throw new \InvalidArgumentException('Parameters should be timestamps.');
         }
         
     }

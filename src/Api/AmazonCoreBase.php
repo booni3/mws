@@ -2,9 +2,6 @@
 
 namespace Booni3\Mws\Api;
 
-use Exception;
-use InvalidArgumentException;
-
 /**
  * Copyright 2013 CPI Group, LLC
  *
@@ -361,7 +358,7 @@ abstract class AmazonCoreBase{
      * been initiated. The file will not be set if it cannot be found or read.
      * This is useful for testing, in cases where you want to use a different file.
      * @param string $path <p>The path to the config file.</p>
-     * @throws Exception If the file cannot be found or read.
+     * @throws \Exception If the file cannot be found or read.
      */
     public function setConfig($path){
         if (file_exists($path) && is_readable($path)){
@@ -372,7 +369,7 @@ abstract class AmazonCoreBase{
                 $this->urlbase = rtrim($AMAZON_SERVICE_URL, '/') . '/';
             }
         } else {
-            throw new Exception("Config file does not exist or cannot be read! ($path)");
+            throw new \Exception("Config file does not exist or cannot be read! ($path)");
         }
     }
     
@@ -382,7 +379,7 @@ abstract class AmazonCoreBase{
      * Use this method to change the log file used. This method is called
      * each time the config file is changed.
      * @param string $path <p>The path to the log file.</p>
-     * @throws Exception If the file cannot be found or read.
+     * @throws \Exception If the file cannot be found or read.
      */
     public function setLogPath($path){
         if (!file_exists($path)){
@@ -392,7 +389,7 @@ abstract class AmazonCoreBase{
         if (file_exists($path) && is_readable($path)){
             $this->logpath = $path;
         } else {
-            throw new Exception("Log file does not exist or cannot be read! ($path)");
+            throw new \Exception("Log file does not exist or cannot be read! ($path)");
         }
         
     }
@@ -407,17 +404,17 @@ abstract class AmazonCoreBase{
      * the incident will be logged.
      * @param string $s [optional] <p>The store name to look for.
      * This parameter is not required if there is only one store defined in the config file.</p>
-     * @throws Exception If the file can't be found.
+     * @throws \Exception If the file can't be found.
      */
     public function setStore($s=null){
         if (file_exists($this->config)){
             include($this->config);
         } else {
-            throw new Exception("Config file does not exist!");
+            throw new \Exception("Config file does not exist!");
         }
         
         if (empty($store) || !is_array($store)) {
-            throw new Exception("No stores defined!");
+            throw new \Exception("No stores defined!");
         }
         
         if (!isset($s) && count($store)===1) {
@@ -473,7 +470,7 @@ abstract class AmazonCoreBase{
      * the code runs. The values used in this library are "Info", "Warning",
      * "Urgent", and "Throttle".</p>
      * @return boolean <b>FALSE</b> if the message is empty, NULL if logging is muted
-     * @throws Exception If the file can't be written to.
+     * @throws \Exception If the file can't be written to.
      */
     protected function log($msg, $level = 'Info'){
         if ($msg != false) {
@@ -482,7 +479,7 @@ abstract class AmazonCoreBase{
             if (file_exists($this->config)){
                 include($this->config);
             } else {
-                throw new Exception("Config file does not exist!");
+                throw new \Exception("Config file does not exist!");
             }
 
             if (isset($logfunction) && $logfunction != '' && function_exists($logfunction)){
@@ -533,7 +530,7 @@ abstract class AmazonCoreBase{
                 fwrite($fd,$str . "\r\n");
                 fclose($fd);
             } else {
-                throw new Exception('Error! Cannot write to log! ('.$this->logpath.')');
+                throw new \Exception('Error! Cannot write to log! ('.$this->logpath.')');
             }
         } else {
             return false;
@@ -573,7 +570,7 @@ abstract class AmazonCoreBase{
         } else if (is_string($time)) {
             $time = strtotime($time);
         } else {
-            throw new InvalidArgumentException('Invalid time input given');
+            throw new \InvalidArgumentException('Invalid time input given');
         }
         return date('c', $time-120);
             
@@ -586,19 +583,19 @@ abstract class AmazonCoreBase{
      * signed query string.
      * It also handles the creation of the timestamp option prior.
      * @return string query string to send to cURL
-     * @throws Exception if config file or secret key is missing
+     * @throws \Exception if config file or secret key is missing
      */
     protected function genQuery(){
         if (file_exists($this->config)){
             include($this->config);
         } else {
-            throw new Exception("Config file does not exist!");
+            throw new \Exception("Config file does not exist!");
         }
         
         if (array_key_exists($this->storeName, $store) && array_key_exists('secretKey', $store[$this->storeName])){
             $secretKey = $store[$this->storeName]['secretKey'];
         } else {
-            throw new Exception("Secret Key is missing!");
+            throw new \Exception("Secret Key is missing!");
         }
         
         unset($this->options['Signature']);
@@ -892,7 +889,7 @@ abstract class AmazonCoreBase{
      * @param array $parameters
      * @param string $key
      * @return string signed string
-     * @throws Exception
+     * @throws \Exception
      */
     protected function _signParameters(array $parameters, $key) {
         $algorithm = $this->options['SignatureMethod'];
@@ -901,7 +898,7 @@ abstract class AmazonCoreBase{
             $stringToSign = $this->_calculateStringToSignV2($parameters);
 //            var_dump($stringToSign);
         } else {
-            throw new Exception("Invalid Signature Version specified");
+            throw new \Exception("Invalid Signature Version specified");
         }
         return $this->_sign($stringToSign, $key, $algorithm);
     }
@@ -934,7 +931,7 @@ abstract class AmazonCoreBase{
      * @param string $key
      * @param string $algorithm 'HmacSHA1' or 'HmacSHA256'
      * @return string
-     * @throws Exception
+     * @throws \Exception
      */
      protected function _sign($data, $key, $algorithm)
     {
@@ -943,7 +940,7 @@ abstract class AmazonCoreBase{
         } else if ($algorithm === 'HmacSHA256') {
             $hash = 'sha256';
         } else {
-            throw new Exception ("Non-supported signing method specified");
+            throw new \Exception ("Non-supported signing method specified");
         }
         
         return base64_encode(

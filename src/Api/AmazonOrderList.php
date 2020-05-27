@@ -2,7 +2,7 @@
 
 namespace Booni3\Mws\Api;
 
-use Exception;
+
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -29,7 +29,7 @@ use Exception;
  * are available to narrow the number of orders returned, but none of them
  * are required. This object can use tokens when retrieving the list.
  */
-class AmazonOrderList extends AmazonOrderCore implements Iterator{
+class AmazonOrderList extends AmazonOrderCore implements \Iterator{
     protected $orderList;
     protected $i = 0;
     protected $tokenFlag = false;
@@ -214,7 +214,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator{
      *
      * Use this in case you change your mind and want to remove the Marketplace ID
      * parameters you previously set.
-     * @throws Exception if config file is missing
+     * @throws \Exception if config file is missing
      */
     public function resetMarketplaceFilter($s){
         foreach($this->options as $op=>$junk){
@@ -226,7 +226,7 @@ class AmazonOrderList extends AmazonOrderCore implements Iterator{
         //reset to store's default marketplace
         $config = config('mws', null);
         if(! $store = $config[$s] ?? null){
-            throw new Exception('Config file does not exist!');
+            throw new \Exception('Config file does not exist!');
         }
 
         if(isset($store[$this->storeName]) && array_key_exists('marketplaceId', $store[$this->storeName])){

@@ -2,7 +2,7 @@
 
 namespace Booni3\Mws\Api;
 
-use Exception;
+
 
 /**
  * Copyright 2013 CPI Group, LLC
@@ -51,7 +51,7 @@ abstract class AmazonProductsCore extends AmazonCore{
 
         $config = config('mws', null);
         if(! $store = $config[$s] ?? null){
-            throw new Exception('Config file does not exist!');
+            throw new \Exception('Config file does not exist!');
         }
         
         if(isset($AMAZON_VERSION_PRODUCTS)){

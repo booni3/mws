@@ -27,7 +27,7 @@ namespace Booni3\Mws\Api;
  * In order to do this, a marketplace ID is needed. The current store's
  * configured marketplace is used by default.
  */
-class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implements Iterator{
+class AmazonSubscriptionDestinationList extends AmazonSubscriptionCore implements \Iterator{
     protected $destinationList;
     protected $i = 0;
 

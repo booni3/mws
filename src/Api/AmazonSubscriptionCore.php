@@ -47,7 +47,7 @@ abstract class AmazonSubscriptionCore extends AmazonCore{
 
         $config = config('mws', null);
         if(! $store = $config[$s] ?? null){
-            throw new Exception('Config file does not exist!');
+            throw new \Exception('Config file does not exist!');
         }
 
         if (isset($AMAZON_VERSION_SUBSCRIBE)){

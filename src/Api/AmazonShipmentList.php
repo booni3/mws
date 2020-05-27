@@ -26,7 +26,7 @@ namespace Booni3\Mws\Api;
  * In order to this, either a list of IDs or a list of statuses are required.
  * This object can use tokens when fetching the list.
  */
-class AmazonShipmentList extends AmazonInboundCore implements Iterator{
+class AmazonShipmentList extends AmazonInboundCore implements \Iterator{
     protected $tokenFlag = false;
     protected $tokenUseFlag = false;
     protected $shipmentList;
@@ -197,7 +197,7 @@ class AmazonShipmentList extends AmazonInboundCore implements Iterator{
             }
             
         } catch (Exception $e){
-            throw new InvalidArgumentException('Parameters should be timestamps.');
+            throw new \InvalidArgumentException('Parameters should be timestamps.');
         }
         
     }

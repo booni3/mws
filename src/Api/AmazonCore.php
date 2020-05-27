@@ -2,7 +2,7 @@
 
 namespace Booni3\Mws\Api;
 
-use Exception;
+
 use Illuminate\Support\Facades\Log;
 
 class AmazonCore extends AmazonCoreBase
@@ -65,7 +65,7 @@ class AmazonCore extends AmazonCoreBase
         if(! isset($config[$this->storeName])) {
             $this->config = $config;
         } else {
-            throw new Exception("Config file does not contain valid store key");
+            throw new \Exception("Config file does not contain valid store key");
         }
     }
 
@@ -100,13 +100,13 @@ class AmazonCore extends AmazonCoreBase
 
     protected function genQuery(){
         if(! $store = config('mws', null)){
-            throw new Exception('Config file does not exist!');
+            throw new \Exception('Config file does not exist!');
         }
 
         if (array_key_exists($this->storeName, $store) && array_key_exists('secretKey', $store[$this->storeName])){
             $secretKey = $store[$this->storeName]['secretKey'];
         } else {
-            throw new Exception("Secret Key is missing!");
+            throw new \Exception("Secret Key is missing!");
         }
 
         unset($this->options['Signature']);

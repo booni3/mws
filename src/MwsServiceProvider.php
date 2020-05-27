@@ -26,7 +26,10 @@ class MwsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'mws');
 
         $this->app->singleton('mws', function () {
-            return new Mws;
+            return new Mws(
+                config('mws.store'),
+                config('mws.config')
+            );
         });
     }
 }
